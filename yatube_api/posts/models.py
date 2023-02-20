@@ -42,12 +42,14 @@ class Comment(models.Model):
 
 class Follow(models.Model):
     user = models.ForeignKey(
-        User, on_delete=models.CASCADE, null=True, blank=True,
-        related_name='follower'
+        User,
+        related_name='follower',
+        on_delete=models.CASCADE
     )
     following = models.ForeignKey(
-        User, on_delete=models.CASCADE, null=True, blank=True,
-        related_name='following'
+        User,
+        related_name='following',
+        on_delete=models.CASCADE
     )
 
     class Meta:
@@ -55,6 +57,3 @@ class Follow(models.Model):
             models.UniqueConstraint(fields=['user', 'following'],
                                     name='unique_user_subscribers')
         ]
-
-    def __str__(self):
-        return '{} follows {}'.format(self.user, self.following)
